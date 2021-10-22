@@ -49,11 +49,18 @@ public class World {
     }
 
     public static void main(String[] args){
-        out.println("Start");
 
-        Direction[] enumArgs = parse(args);
-        run(enumArgs);
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
+        MapDirection direction = MapDirection.NORTH;
+        out.println(direction);
+        out.println(direction.next());
+        out.println(direction.previous());
+        out.println(direction.toUnitVector());
+        out.println(direction.previous().toUnitVector());
 
-        out.println("Stop");
     }
 }
