@@ -1,7 +1,8 @@
 package agh.ics.oop;
 import javax.lang.model.type.NullType;
-import java.sql.Array;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.System.lineSeparator;
@@ -50,17 +51,14 @@ public class World {
 
     public static void main(String[] args){
 
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-        MapDirection direction = MapDirection.NORTH;
-        out.println(direction);
-        out.println(direction.next());
-        out.println(direction.previous());
-        out.println(direction.toUnitVector());
-        out.println(direction.previous().toUnitVector());
+        Animal animal = new Animal();
+        MoveDirection[] parsedArgs = OptionParser.parse(args);
+        out.println(Arrays.toString(parsedArgs));
+        out.println(animal);
+        for (MoveDirection direction : parsedArgs){
+            animal.moveDirection(direction);
+            out.println(animal);
+        }
 
     }
 }
