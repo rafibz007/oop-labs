@@ -50,15 +50,16 @@ public class World {
     }
 
     public static void main(String[] args){
-
-        Animal animal = new Animal();
-        MoveDirection[] parsedArgs = OptionParser.parse(args);
-        out.println(Arrays.toString(parsedArgs));
-        out.println(animal);
-        for (MoveDirection direction : parsedArgs){
-            animal.moveDirection(direction);
-            out.println(animal);
-        }
+        /*ARGS FOR TESTING
+        * f b f b f b f b f b f b f b f b r l f f f f f f f f f f
+        * */
+        MoveDirection[] directions = OptionParser.parse(args);
+        out.println(Arrays.toString(directions));
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        out.println(map);
 
     }
 }

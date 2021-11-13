@@ -7,24 +7,26 @@ public class AnimalTest {
     @Test
     void testToString(){
 
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(5,5);
+        Animal animal = new Animal(map);
 
         animal.forTestingSetPositionAndDirection(1, 1, MapDirection.NORTH);
-        Assertions.assertEquals("(1, 1):Północ", animal.toString());
+        Assertions.assertEquals("^", animal.toString());
 
         animal.forTestingSetPositionAndDirection(2, 1, MapDirection.EAST);
-        Assertions.assertEquals("(2, 1):Wschód", animal.toString());
+        Assertions.assertEquals(">", animal.toString());
 
         animal.forTestingSetPositionAndDirection(1, 3, MapDirection.SOUTH);
-        Assertions.assertEquals("(1, 3):Południe", animal.toString());
+        Assertions.assertEquals("v", animal.toString());
 
         animal.forTestingSetPositionAndDirection(0, 0, MapDirection.WEST);
-        Assertions.assertEquals("(0, 0):Zachód", animal.toString());
+        Assertions.assertEquals("<", animal.toString());
     }
 
     @Test
     void testMoveDirection(){
-        Animal animal = new Animal();
+        IWorldMap map = new RectangularMap(5,5);
+        Animal animal = new Animal(map);
 
         animal.forTestingSetPositionAndDirection(2,2,MapDirection.NORTH);
         for (MoveDirection direction : OptionParser.parse(new String[]{"f", "f", "f"})){
