@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RectangularMap implements IWorldMap{
-    public final int height;
-    public final int width;
-    public final Vector2d lowerLeft;
-    public final Vector2d upperRight;
+    private final int height;
+    private final int width;
+    private final Vector2d lowerLeft;
+    private final Vector2d upperRight;
 
 //    All animals on the map are stored in a list
 //    In future can be changed to List<Object>
-    public List<Animal> animalsList;
+    private List<Animal> animalsList;
 
 
 
