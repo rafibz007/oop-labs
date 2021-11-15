@@ -3,17 +3,16 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrassField implements IWorldMap{
+public class GrassField extends AbstractWorldMap{
     private final int grassTilesAmount;
     private List<Grass> grassTiles;
-    private List<Animal> animalsList;
     private Vector2d grassLowerLeft;
     private Vector2d grassUpperRight;
 
     public GrassField(int grassTilesAmount){
+        super();
         this.grassTilesAmount = grassTilesAmount;
         this.grassTiles = new ArrayList<>();
-        this.animalsList = new ArrayList<>();
 
         int distance = (int)Math.floor(Math.sqrt(10*grassTilesAmount));
         this.grassLowerLeft = new Vector2d(0,0);
@@ -60,43 +59,39 @@ public class GrassField implements IWorldMap{
         return null;
     }
 
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return objectAt(position) != null;
-    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
         return !(objectAt(position) instanceof Animal);
     }
 
+
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())){
-            animalsList.add(animal);
-            return true;
-        }
-        return false;
-    }
-
-    public String toString(){
+    protected Vector2d getLowerLeft() {
         Vector2d lowerLeft = grassTiles.get(0).getPosition();
-        Vector2d upperRight = grassTiles.get(0).getPosition();
-
         for (int i = animalsList.size()-1; i>=0; i--){
             lowerLeft = lowerLeft.lowerLeft(animalsList.get(i).getPosition());
-            upperRight = upperRight.upperRight(animalsList.get(i).getPosition());
         }
 
         for (int i= grassTiles.size()-1; i>=0; i--){
             lowerLeft = lowerLeft.lowerLeft(grassTiles.get(i).getPosition());
-            upperRight = upperRight.upperRight(grassTiles.get(i).getPosition());
+        }
+        return lowerLeft;
+    }
+
+    @Override
+    public Vector2d getUpperRight() {
+        Vector2d upperRight = grassTiles.get(0).getPosition();
+        for (int i = animalsList.size()-1; i>=0; i--){
+            upperRight = upperRight.upperRight(animalsList.get(i).getPosition());
         }
 
-
-        MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(lowerLeft, upperRight);
+        for (int i= grassTiles.size()-1; i>=0; i--){
+            upperRight = upperRight.upperRight(grassTiles.get(i).getPosition());
+        }
+        return upperRight;
     }
+
 
     public void forTestingSetGrassTiles(List<Grass> grassTiles){
         this.grassTiles = grassTiles;
