@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrassField implements IWorldMap{
-    private int grassTilesAmount;
+    private final int grassTilesAmount;
     private List<Grass> grassTiles;
-    private List<Animal> animalTiles;
+    private List<Animal> animalsList;
     private Vector2d grassLowerLeft;
     private Vector2d grassUpperRight;
 
     public GrassField(int grassTilesAmount){
         this.grassTilesAmount = grassTilesAmount;
         this.grassTiles = new ArrayList<>();
-        this.animalTiles = new ArrayList<>();
+        this.animalsList = new ArrayList<>();
 
         int distance = (int)Math.floor(Math.sqrt(10*grassTilesAmount));
         this.grassLowerLeft = new Vector2d(0,0);
@@ -39,8 +39,8 @@ public class GrassField implements IWorldMap{
     }
 
     private Animal animalAt(Vector2d position){
-        for (int i=animalTiles.size()-1; i>=0; i--){
-            Animal tile = animalTiles.get(i);
+        for (int i = animalsList.size()-1; i>=0; i--){
+            Animal tile = animalsList.get(i);
             if (tile.getPosition().equals(position)){
                 return tile;
             }
@@ -73,7 +73,7 @@ public class GrassField implements IWorldMap{
     @Override
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())){
-            animalTiles.add(animal);
+            animalsList.add(animal);
             return true;
         }
         return false;
@@ -83,9 +83,9 @@ public class GrassField implements IWorldMap{
         Vector2d lowerLeft = grassTiles.get(0).getPosition();
         Vector2d upperRight = grassTiles.get(0).getPosition();
 
-        for (int i= animalTiles.size()-1; i>=0; i--){
-            lowerLeft = lowerLeft.lowerLeft(animalTiles.get(i).getPosition());
-            upperRight = upperRight.upperRight(animalTiles.get(i).getPosition());
+        for (int i = animalsList.size()-1; i>=0; i--){
+            lowerLeft = lowerLeft.lowerLeft(animalsList.get(i).getPosition());
+            upperRight = upperRight.upperRight(animalsList.get(i).getPosition());
         }
 
         for (int i= grassTiles.size()-1; i>=0; i--){
@@ -96,5 +96,9 @@ public class GrassField implements IWorldMap{
 
         MapVisualizer visualizer = new MapVisualizer(this);
         return visualizer.draw(lowerLeft, upperRight);
+    }
+
+    public void forTestingSetGrassTiles(List<Grass> grassTiles){
+        this.grassTiles = grassTiles;
     }
 }
