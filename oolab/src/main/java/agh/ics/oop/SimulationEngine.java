@@ -23,6 +23,9 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
+        if (animalsList.size() <= 0)
+            return;
+
         for(int i=0; i<moves.length; i++){
             Animal animal = this.animalsList.get(i%animalsList.size());
             animal.moveDirection(moves[i]);
