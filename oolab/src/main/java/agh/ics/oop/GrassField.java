@@ -1,18 +1,17 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
     private final int grassTilesAmount;
-    private List<Grass> grassTiles;
+    private Map <Vector2d, Grass> grassTiles;
     private Vector2d grassLowerLeft;
     private Vector2d grassUpperRight;
 
     public GrassField(int grassTilesAmount){
         super();
         this.grassTilesAmount = grassTilesAmount;
-        this.grassTiles = new ArrayList<>();
+        this.grassTiles = new LinkedHashMap<>();
 
         int distance = (int)Math.floor(Math.sqrt(10*grassTilesAmount));
         this.grassLowerLeft = new Vector2d(0,0);
@@ -23,28 +22,16 @@ public class GrassField extends AbstractWorldMap{
             if (grassAt(newPosition) != null){
                 continue;
             }
-            grassTiles.add(new Grass(newPosition));
+            grassTiles.put(newPosition, new Grass(newPosition));
         }
     }
 
     private Grass grassAt(Vector2d position){
-        for (int i=grassTiles.size()-1; i>=0; i--) {
-            Grass tile = grassTiles.get(i);
-            if (tile.getPosition().equals(position)){
-                return tile;
-            }
-        }
-        return null;
+        return grassTiles.get(position);
     }
 
     private Animal animalAt(Vector2d position){
-        for (int i = animalsList.size()-1; i>=0; i--){
-            Animal tile = animalsList.get(i);
-            if (tile.getPosition().equals(position)){
-                return tile;
-            }
-        }
-        return null;
+        return animalsList.get(position);
     }
 
     @Override
@@ -68,38 +55,47 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     protected Vector2d getLowerLeft() {
-        Vector2d lowerLeft = grassTiles.size() > 0 ? grassTiles.get(0).getPosition() : null;
-        lowerLeft = lowerLeft == null && animalsList.size() > 0 ? animalsList.get(0).getPosition() : lowerLeft;
+        Vector2d[] grassTilesKeys = grassTiles.keySet().toArray(new Vector2d[0]);
+        Vector2d[] animalsListKeys = animalsList.keySet().toArray(new Vector2d[0]);
+
+        Vector2d lowerLeft = grassTilesKeys.length > 0 ? grassTilesKeys[0] : null;
+        lowerLeft = lowerLeft == null && animalsListKeys.length > 0 ? animalsListKeys[0] : lowerLeft;
         lowerLeft = lowerLeft == null ? new Vector2d(0,0) : lowerLeft;
 
-        for (int i = animalsList.size()-1; i>=0; i--){
-            lowerLeft = lowerLeft.lowerLeft(animalsList.get(i).getPosition());
+        for (int i = animalsListKeys.length-1; i>=0; i--){
+            assert animalsListKeys[i] != null;
+            lowerLeft = lowerLeft.lowerLeft(animalsListKeys[i]);
         }
 
         for (int i= grassTiles.size()-1; i>=0; i--){
-            lowerLeft = lowerLeft.lowerLeft(grassTiles.get(i).getPosition());
+            assert grassTilesKeys[i] != null;
+            lowerLeft = lowerLeft.lowerLeft(grassTilesKeys[i]);
         }
         return lowerLeft;
     }
 
     @Override
     public Vector2d getUpperRight() {
-        Vector2d upperRight = grassTiles.size() > 0 ? grassTiles.get(0).getPosition() : null;
-        upperRight = upperRight == null && animalsList.size() > 0 ? animalsList.get(0).getPosition() : upperRight;
+        Vector2d[] grassTilesKeys = grassTiles.keySet().toArray(new Vector2d[0]);
+        Vector2d[] animalsListKeys = animalsList.keySet().toArray(new Vector2d[0]);
+
+        Vector2d upperRight = grassTilesKeys.length > 0 ? grassTilesKeys[0] : null;
+        upperRight = upperRight == null && animalsListKeys.length > 0 ? animalsListKeys[0] : upperRight;
         upperRight = upperRight == null ? new Vector2d(0,0) : upperRight;
 
         for (int i = animalsList.size()-1; i>=0; i--){
-            upperRight = upperRight.upperRight(animalsList.get(i).getPosition());
+            assert animalsListKeys[i] != null;
+            upperRight = upperRight.upperRight(animalsListKeys[i]);
         }
 
         for (int i= grassTiles.size()-1; i>=0; i--){
-            upperRight = upperRight.upperRight(grassTiles.get(i).getPosition());
+            assert grassTilesKeys[i] != null;
+            upperRight = upperRight.upperRight(grassTilesKeys[i]);
         }
         return upperRight;
     }
 
-
-    public void forTestingSetGrassTiles(List<Grass> grassTiles){
+    public void forTestingSetGrassTiles(Map<Vector2d, Grass> grassTiles){
         this.grassTiles = grassTiles;
     }
 }

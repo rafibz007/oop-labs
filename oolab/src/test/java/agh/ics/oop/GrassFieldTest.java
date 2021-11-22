@@ -5,17 +5,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GrassFieldTest {
-    Animal animal1;
-    Animal animal2;
-    Grass grass1;
-    Grass grass2;
-    Grass grass3;
-    Grass grass4;
+    Animal animal1, animal2;
+    Grass grass1, grass2, grass3, grass4;
     GrassField map;
-    List<Grass> grassTiles;
+    Map<Vector2d, Grass> grassTiles;
+    Vector2d position1, position2, position3, position4;
 
     @Test
     void objectAt(){
@@ -75,15 +74,20 @@ public class GrassFieldTest {
         map = new GrassField(4);
         animal1 = new Animal(map, new Vector2d(1, 1));
         animal2 = new Animal(map, new Vector2d(2, 2));
-        grassTiles = new ArrayList<>();
-        grass1 = new Grass(new Vector2d(0,0));
-        grass2 = new Grass(new Vector2d(1,1));
-        grass3 = new Grass(new Vector2d(2,2));
-        grass4 = new Grass(new Vector2d(3,3));
-        grassTiles.add(grass1);
-        grassTiles.add(grass2);
-        grassTiles.add(grass3);
-        grassTiles.add(grass4);
+        grassTiles = new LinkedHashMap<>();
+
+        position1 = new Vector2d(0,0);
+        position2 = new Vector2d(1,1);
+        position3 = new Vector2d(2,2);
+        position4 = new Vector2d(3,3);
+        grass1 = new Grass(position1);
+        grass2 = new Grass(position2);
+        grass3 = new Grass(position3);
+        grass4 = new Grass(position4);
+        grassTiles.put(position1, grass1);
+        grassTiles.put(position2, grass2);
+        grassTiles.put(position3, grass3);
+        grassTiles.put(position4, grass4);
         map.forTestingSetGrassTiles(grassTiles);
         map.place(animal1);
         map.place(animal2);
