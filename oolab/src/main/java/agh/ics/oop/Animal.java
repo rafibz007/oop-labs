@@ -78,7 +78,6 @@ public class Animal {
         Observers.add(observer);
     }
 
-
     public void removeObserver(IPositionChangeObserver observer){
         Observers.remove(observer);
     }

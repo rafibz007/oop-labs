@@ -24,14 +24,9 @@ public class RectangularMap extends AbstractWorldMap{
         if ( !(position.follows(lowerLeft)) || !(position.precedes(upperRight)) ){
             return false;
         }
-        return !isOccupied(position);
+        return super.canMoveTo(position);
     }
 
-
-    @Override
-    public Object objectAt(Vector2d position) {
-        return animalsList.get(position);
-    }
 
     @Override
     public Vector2d getLowerLeft() {

@@ -15,7 +15,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             animalsList.put(animal.getPosition() ,animal);
             return true;
         }
-        return false;
+//        return false;
+        throw new IllegalArgumentException( animal.getPosition() + " is not a valid tile to place an animal" );
     }
 
     @Override
@@ -40,5 +41,13 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         Animal animal =  animalsList.get(oldPosition);
         animalsList.remove(oldPosition);
         animalsList.put(newPosition, animal);
+    }
+
+    public boolean canMoveTo(Vector2d position) {
+        return !(objectAt(position) instanceof Animal);
+    }
+
+    public Object objectAt(Vector2d position) {
+        return animalsList.get(position);
     }
 }

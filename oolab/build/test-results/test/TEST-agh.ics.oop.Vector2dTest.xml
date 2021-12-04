@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.Vector2dTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-22T16:04:44" hostname="Dell-rafi" time="0.035">
+<testsuite name="agh.ics.oop.Vector2dTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-12-04T15:27:36" hostname="Dell-rafi" time="0.035">
   <properties/>
   <testcase name="testAdd()" classname="agh.ics.oop.Vector2dTest" time="0.019"/>
   <testcase name="testSubtract()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="testFollows()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="testFollows()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
   <testcase name="testToString()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
   <testcase name="testPrecedes()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
   <testcase name="testLowerLeft()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
   <testcase name="testOpposite()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="testEquals()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="testUpperRight()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
+  <testcase name="testEquals()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="testUpperRight()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

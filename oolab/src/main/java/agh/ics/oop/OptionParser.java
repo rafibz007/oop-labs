@@ -16,12 +16,10 @@ public class OptionParser {
                 case "r", "right" -> MoveDirection.RIGHT;
                 case "b", "backward" -> MoveDirection.BACKWARD;
                 case "l", "left" -> MoveDirection.LEFT;
-                default -> null;
+                default -> throw new IllegalArgumentException( "'" + arg + "' is not legal move specification" );
             };
-            if (parsedArgs[i] == null)
-                continue;
             i += 1;
         }
-        return Arrays.copyOf(parsedArgs, i);
+        return parsedArgs;
     }
 }

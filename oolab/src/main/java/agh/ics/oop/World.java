@@ -50,18 +50,24 @@ public class World {
     }
 
     public static void main(String[] args){
-        /*ARGS FOR TESTING
-        * f b f b f b f b f b f b f b f b r l f f f f f f f f f f
-        * */
-        MoveDirection[] directions = OptionParser.parse(args);
-        out.println(Arrays.toString(directions));
-        IWorldMap map = new GrassField(5);
+       try{
+           /*ARGS FOR TESTING
+            * f b f b f b f b f b f b f b f b r l f f f f f f f f f f
+            * */
+           MoveDirection[] directions = OptionParser.parse(args);
+           out.println(Arrays.toString(directions));
+           IWorldMap map = new GrassField(2);
 //        IWorldMap map = new RectangularMap(5,5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        out.println(map);
-        engine.run();
-        out.println(map);
+           Vector2d[] positions = { new Vector2d(0,0), new Vector2d(1,0) };
+           IEngine engine = new SimulationEngine(directions, map, positions);
+           out.println(map);
+           engine.run();
+           out.println(map);
+       } catch( IllegalArgumentException exception ) {
+           out.println(exception);
+           exception.printStackTrace();
+//           System.exit(0); - nie wiem czy musze konczyc program, skoro caly kod w main ma byc objety try, bo po wyjsciu z try/catch nie zostaje juz nic do wykonania i sam sie konczy
+       }
 
     }
 }
