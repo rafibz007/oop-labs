@@ -1,4 +1,7 @@
 package agh.ics.oop;
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import javax.lang.model.type.NullType;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -51,18 +54,11 @@ public class World {
 
     public static void main(String[] args){
        try{
+           Application.launch(App.class, args);
            /*ARGS FOR TESTING
             * f b f b f b f b f b f b f b f b r l f f f f f f f f f f
             * */
-           MoveDirection[] directions = OptionParser.parse(args);
-           out.println(Arrays.toString(directions));
-           IWorldMap map = new GrassField(2);
-//        IWorldMap map = new RectangularMap(5,5);
-           Vector2d[] positions = { new Vector2d(0,0), new Vector2d(1,0) };
-           IEngine engine = new SimulationEngine(directions, map, positions);
-           out.println(map);
-           engine.run();
-           out.println(map);
+
        } catch( IllegalArgumentException exception ) {
            out.println(exception);
            exception.printStackTrace();
