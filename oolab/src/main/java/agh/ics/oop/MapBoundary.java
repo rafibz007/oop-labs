@@ -58,11 +58,15 @@ public class MapBoundary implements IPositionChangeObserver{
     }
 
     public void addObject(Vector2d position, Object object){
+        if (object == null)
+            return;
         sortedXAxis.add( new pairVectorObject(position, object) );
         sortedYAxis.add( new pairVectorObject(position, object) );
     }
 
     public void removeObject(Vector2d position, Object object){
+        if (object == null)
+            return;
         sortedXAxis.remove( new pairVectorObject(position, object) );
         sortedYAxis.remove( new pairVectorObject(position, object) );
 

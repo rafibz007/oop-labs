@@ -12,6 +12,7 @@ public class GrassField extends AbstractWorldMap{
         this.grassTilesAmount = grassTilesAmount;
         this.grassTiles = new LinkedHashMap<>();
         this.mapBoundary = new MapBoundary(this);
+        observersForAnimals.add(mapBoundary);
 
         int distance = (int)Math.floor(Math.sqrt(10*grassTilesAmount));
 
@@ -35,7 +36,7 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    public Object objectAt(Vector2d position) {
+    public IMapElement objectAt(Vector2d position) {
         Animal animal = animalAt(position);
         if (animal != null)
             return animal;
@@ -49,7 +50,6 @@ public class GrassField extends AbstractWorldMap{
     @Override
     public boolean place(Animal animal) {
         mapBoundary.addObject(animal.getPosition(), animal);
-        animal.addObserver(mapBoundary);
         return super.place(animal);
     }
 
@@ -65,5 +65,15 @@ public class GrassField extends AbstractWorldMap{
 
     public void forTestingSetGrassTiles(Map<Vector2d, Grass> grassTiles){
         this.grassTiles = grassTiles;
+    }
+
+    @Override
+    public Set<Vector2d> objectsSet() {
+        Set<Vector2d> set1 = super.objectsSet();
+        Set<Vector2d> set2 = grassTiles.keySet();
+        Set<Vector2d> set = new HashSet<>();
+        set.addAll(set1);
+        set.addAll(set2);
+        return set;
     }
 }

@@ -1,29 +1,27 @@
 package agh.ics.oop;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Animal {
-    private MapDirection mapDirection;
-    private Vector2d position;
+public class Animal implements IMapElement{
+    private MapDirection mapDirection = MapDirection.NORTH;
+    private Vector2d position = new Vector2d(2,2);
     private final IWorldMap map;
     private final List<IPositionChangeObserver> Observers = new ArrayList<>();
 
 
     public Animal(IWorldMap map){
-        this.mapDirection = MapDirection.NORTH;
-        this.position = new Vector2d(2,2);
         this.map = map;
-        if (map instanceof IPositionChangeObserver)
-            addObserver((IPositionChangeObserver) map);
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
-        this.mapDirection = MapDirection.NORTH;
+        this(map);
         this.position = initialPosition;
-        this.map = map;
-        if (map instanceof IPositionChangeObserver)
-            addObserver((IPositionChangeObserver) map);
     }
 
     public boolean isAt(Vector2d position){
@@ -83,11 +81,28 @@ public class Animal {
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        if (newPosition == oldPosition)
-            return;
         for (IPositionChangeObserver observer : Observers){
             observer.positionChanged(oldPosition, newPosition);
         }
+    }
+
+
+    @Override
+    public ImageView guiRepresentationImageView() throws FileNotFoundException {
+        String direction = switch (mapDirection){
+            case NORTH -> "up";
+            case EAST -> "right";
+            case SOUTH -> "down";
+            case WEST -> "left";
+        };
+
+        Image image = new Image( new FileInputStream("src/main/resources/"+direction+".png"));
+        return new ImageView(image);
+    }
+
+    @Override
+    public Label guiRepresentationLabel() {
+        return new Label(position.toString());
     }
 
 }
